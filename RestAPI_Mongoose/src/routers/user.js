@@ -14,7 +14,7 @@ router.post("/users", async (req, res) => {
         res.status(400).send(error);
     }
 });
-router.get("/users", async (req, res) => {
+router.get("/users",auth, async (req, res) => {
     try {
         const users = await User.find({});
         res.send(users);

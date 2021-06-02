@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 
 const UserSchema = new mongoose.Schema({
@@ -69,6 +69,7 @@ UserSchema.statics.findByCredentials = async (email, password) => {
     }
     return user
 }
+
 UserSchema.pre('save', async function (next) {
     const user = this
     console.log("just before saving")

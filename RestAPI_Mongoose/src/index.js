@@ -15,6 +15,14 @@ app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
 
+app.get('/',(req,res)=>{
+    console.log(req.headers);
+    res.send("NodeJS Practice");
+})
+
+// app.use((req,res,next)=>{
+// res.status(503).send("Site under maintenance. Temporarily down");
+// })
 // const myFunction = async()=>{
 // const token = await jwt.sign({_id:"12345678"},"SdDHBOTPkwH5QhLg",{expiresIn: '5 seconds'})
 // console.log(token)

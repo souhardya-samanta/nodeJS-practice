@@ -14,15 +14,40 @@ router.post("/users", async (req, res) => {
         res.status(400).send(error);
     }
 });
+router.get("/users/me",auth, async (req, res) => {
+    res.send(req.user)
+});
+
 router.get("/users",auth, async (req, res) => {
     try {
-        const users = await User.find({});
+        const users=await User.find({})
         res.send(users);
     } catch (error) {
-        res.status(400).send(error);
+        res.status(500).send(error)
     }
 });
 
+router.post("/users/logout",auth, async(req,res)=>{
+    try {
+        req.user.tokens = req.user.tokens.filter((token)=>{
+            return token.token !== req.token
+        })
+        await req.user.save()
+        res.send()
+    } catch (error) {
+        res.status(500).send()
+    }
+})
+
+router.post("/users/logoutAll",auth,async (req,res)=>{
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (error) {
+        res.status(500).send()
+    }
+})
 router.get("/users/:id", async (req, res) => {
     const _id = req.params.id;
     try {
